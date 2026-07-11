@@ -1,58 +1,27 @@
-name: SonarCloud Scan
+name: SonarCloud Analysis
 
 on:
   push:
-    branches: [ master ]
-    paths:
-      - '**.py'
-      - 'pyproject.toml'
-      - 'pytest.ini'
-      - 'sonar-project.properties'
+    branches:
+      - master
+      - main
   pull_request:
-    branches: [ master ]
-    paths:
-      - '**.py'
-      - 'pyproject.toml'
-      - 'pytest.ini'
-      - 'sonar-project.properties'
+    branches:
+      - master
+      - main
 
 jobs:
   sonarcloud:
-    name: SonarCloud Scan
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
 
     steps:
-      - uses: actions/checkout@v7
-
-      - name: Set up Python 3.13
-        uses: actions/setup-python@v6
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          python-version: '3.13'
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
-        with:
-          enable-cache: true
-
-      - name: Install dependencies
-        run: |
-          uv sync --group dev
-
-      - name: Run tests with coverage
-        run: |
-          uv run coverage run --source='wger' ./manage.py test --parallel auto
-          uv run coverage xml -i
+          fetch-depth: 0
 
       - name: Run SonarCloud analysis
-        uses: sonarsource/sonarcloud-github-action@v1
-        with:
-          organization: ${{ secrets.SONAR_ORGANIZATION }}
-          token: ${{ secrets.SONAR_TOKEN }}
-          projectKey: ${{ secrets.SONAR_PROJECT_KEY }}
-          projectName: wger
-          args: >
-            -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.projectBaseDir=.
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
