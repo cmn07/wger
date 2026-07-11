@@ -588,33 +588,34 @@
                         <span class="caret"></span>
                     </button>
 
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupLanguages">
-                        <li>
-                            <a class="dropdown-item" href="{% url 'core:language:browser_language' %}?next={{ request.path }}">
-                                <span class="{% fa_class 'globe' %}"></span>
-                                <span>{% translate "Browser language" %}</span>
-                            </a>
-                        </li>
-                        <form id="language-form" action="{% url 'set_language' %}" method="post">
-                            {% csrf_token %}
-                            <input name="next" type="hidden" value="{{ redirect_to }}">
-                            <input type="hidden" name="language" id="language-input">
+                    <form id="language-form" action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ redirect_to }}">
+                        <input type="hidden" name="language" id="language-input">
+
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupLanguages">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'core:language:browser_language' %}?next={{ request.path }}">
+                                    <span class="{% fa_class 'globe' %}"></span>
+                                    <span>{% translate "Browser language" %}</span>
+                                </a>
+                            </li>
                             {% for language in languages %}
                                 {% language_select language %}
                             {% endfor %}
-                        </form>
-                        <li>
-                            <hr class="dropdown-divider"></hr>
-                        </li>
-                        <li>
-                            <a href="https://hosted.weblate.org/engage/wger/"
-                               class="dropdown-item"
-                               target="_blank">
-                                <span class="{% fa_class 'plus' %}"></span>
-                                {% translate "Translate" %}
-                            </a>
-                        </li>
-                    </ul>
+                            <li>
+                                <hr class="dropdown-divider"></hr>
+                            </li>
+                            <li>
+                                <a href="https://hosted.weblate.org/engage/wger/"
+                                   class="dropdown-item"
+                                   target="_blank">
+                                    <span class="{% fa_class 'plus' %}"></span>
+                                    {% translate "Translate" %}
+                                </a>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
 
                 <a href="https://play.google.com/store/apps/details?id=de.wger.flutter">
