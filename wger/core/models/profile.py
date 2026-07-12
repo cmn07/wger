@@ -79,6 +79,8 @@ class UserProfile(models.Model):
         (INTENSITY_HIGH, _('High')),
     )
 
+    PHYSICAL_INTENSITY_LABEL = _('Physical intensity')
+
     UNITS_KG = 'kg'
     UNITS_LB = 'lb'
     UNITS = (
@@ -242,7 +244,7 @@ class UserProfile(models.Model):
     """The average hours at work per day"""
 
     work_intensity = models.CharField(
-        verbose_name=_('Physical intensity'),
+        verbose_name=PHYSICAL_INTENSITY_LABEL,
         help_text=_('Approximately'),
         max_length=1,
         choices=INTENSITY,
@@ -263,7 +265,7 @@ class UserProfile(models.Model):
     """The average hours performing sports per week"""
 
     sport_intensity = models.CharField(
-        verbose_name=_('Physical intensity'),
+        verbose_name=PHYSICAL_INTENSITY_LABEL,
         help_text=_('Approximately'),
         max_length=1,
         choices=INTENSITY,
@@ -284,7 +286,7 @@ class UserProfile(models.Model):
     """The average hours of free time per day"""
 
     freetime_intensity = models.CharField(
-        verbose_name=_('Physical intensity'),
+        verbose_name=PHYSICAL_INTENSITY_LABEL,
         help_text=_('Approximately'),
         max_length=1,
         choices=INTENSITY,
