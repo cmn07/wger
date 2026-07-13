@@ -109,7 +109,8 @@ class ExerciseFilterSet(filters.FilterSet):
             return queryset
         if self.data.get('name__search') or self.data.get('name__exact'):
             return queryset
-        return queryset.filter(translations__language=value).distinct()
+        translation_subquery = Translation.objects.filter(exercise=OuterRef('pk'), language=value)
+        return queryset.filter(Exists(translation_subquery)).distinct()
 
     class Meta:
         model = Exercise
