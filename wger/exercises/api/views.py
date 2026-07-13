@@ -258,7 +258,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
 
         # Only id + uuid are needed to build the cache keys: filtering/ordering
         # still apply, but no related rows are pulled.
-        queryset = self.filter_queryset(Exercise.with_translations.only('id', 'uuid'))
+        queryset = self.filter_queryset(Exercise.objects.only('id', 'uuid'))
         page = self.paginate_queryset(queryset)
         exercises = page if page is not None else list(queryset)
 
