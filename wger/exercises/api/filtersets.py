@@ -43,6 +43,7 @@ class ExerciseFilterSet(filters.FilterSet):
     name__search = filters.CharFilter(method='search_name_fulltext')
     name__exact = filters.CharFilter(method='search_name_exact')
     language__code = filters.CharFilter(method='search_language_code')
+    language = filters.NumberFilter(method='search_language_id')
 
     def _languages_from_params(self):
         if languages_param := self.data.get('language__code'):
@@ -101,6 +102,14 @@ class ExerciseFilterSet(filters.FilterSet):
         if not languages:
             return queryset
         return queryset.filter(translations__language__in=languages).distinct()
+
+
+    def search_language_id(self, queryset: QuerySet, name: str, value):
+        if not value:
+            return queryset
+        if self.data.get('name__search') or self.data.get('name__exact'):
+            return queryset
+        return queryset.filter(translations__language=value).distinct()
 
     class Meta:
         model = Exercise
