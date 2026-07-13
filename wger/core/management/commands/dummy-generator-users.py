@@ -75,7 +75,7 @@ class Command(BaseCommand):
             case _:
                 gym_list = [options['add_to_gym']]
 
-        for i in range(options['number_users']):
+        for _ in range(options['number_users']):
             uid = uuid.uuid4()
             first_name = faker.first_name()
             last_name = faker.last_name()
