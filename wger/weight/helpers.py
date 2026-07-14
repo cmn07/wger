@@ -63,7 +63,8 @@ def parse_weight_csv(request, cleaned_data):
             unique_in_db = not duplicate_date_in_db
 
             if unique_among_csv and unique_in_db and parsed_weight:
-                distinct_weight_entries.append((parsed_date, parsed_weight))
+                parsed_notes = row[2] if len(row) > 2 else None
+                distinct_weight_entries.append((parsed_date, parsed_weight, parsed_notes))
                 entry_dates.add(parsed_date)
             else:
                 error_list.append(row)
@@ -75,7 +76,7 @@ def parse_weight_csv(request, cleaned_data):
             break
 
     # Create the valid weight entries
-    for date, weight in distinct_weight_entries:
-        weight_list.append(WeightEntry(date=date, weight=weight, user=request.user))
+    for date, weight, notes in distinct_weight_entries:
+        weight_list.append(WeightEntry(date=date, weight=weight, notes=notes, user=request.user))
 
     return weight_list, error_list

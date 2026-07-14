@@ -82,3 +82,22 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('weight', response.data)
+
+    def test_post_notes(self):
+        """
+        Test that notes can be saved via the API.
+        """
+        self.authenticate('trainer4')
+
+        response = self.client.post(
+            self.url,
+            data={
+                'weight': 100,
+                'date': self.date,
+                'notes': 'Feeling great today!'
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        entry = WeightEntry.objects.get(pk=response.data['id'])
+        self.assertEqual(entry.notes, 'Feeling great today!')
