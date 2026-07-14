@@ -103,7 +103,6 @@ class ExerciseFilterSet(filters.FilterSet):
             return queryset
         return queryset.filter(translations__language__in=languages).distinct()
 
-
     def search_language_id(self, queryset: QuerySet, name: str, value):
         if not value:
             return queryset
