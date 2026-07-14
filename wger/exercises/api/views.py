@@ -228,6 +228,7 @@ class ExerciseInfoViewset(viewsets.ReadOnlyModelViewSet):
         'variation_group',
         'license',
         'license_author',
+        'language'
     )
 
     def get_queryset(self):
