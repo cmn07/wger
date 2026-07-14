@@ -91,11 +91,7 @@ class WeightEntryTestCase(api_base_test.ApiBaseResourceTestCase):
 
         response = self.client.post(
             self.url,
-            data={
-                'weight': 100,
-                'date': self.date,
-                'notes': 'Feeling great today!'
-            },
+            data={'weight': 100, 'date': self.date, 'notes': 'Feeling great today!'},
         )
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
