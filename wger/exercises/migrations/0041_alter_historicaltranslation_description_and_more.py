@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('exercises', '0040_alter_exercise_license_author_and_more'),
     ]
@@ -19,7 +18,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='historicaltranslation',
             name='description_source',
-            field=models.TextField(validators=[django.core.validators.MinLengthValidator(40)], verbose_name='Description (Source)'),
+            field=models.TextField(
+                validators=[django.core.validators.MinLengthValidator(40)],
+                verbose_name='Description (Source)',
+            ),
         ),
         migrations.AlterField(
             model_name='translation',
@@ -29,6 +31,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='translation',
             name='description_source',
-            field=models.TextField(validators=[django.core.validators.MinLengthValidator(40)], verbose_name='Description (Source)'),
+            field=models.TextField(
+                validators=[django.core.validators.MinLengthValidator(40)],
+                verbose_name='Description (Source)',
+            ),
         ),
     ]
