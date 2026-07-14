@@ -48,6 +48,12 @@ class WeightEntry(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(Decimal(30)), MaxValueValidator(Decimal(600))],
     )
+    notes = models.CharField(
+        verbose_name='Notes',
+        max_length=255,
+        blank=True,
+        null=True,
+    )
 
     user = models.ForeignKey(
         User,
